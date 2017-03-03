@@ -62,13 +62,15 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
-z2 = Theta1*[ones(size(X,1),1) X]';
+
+% initialize constants and forward propagation
+a1 = [ones(size(X,1),1) X];
+z2 = Theta1*a1';
 a2 = sigmoid(z2);
-z3 = Theta2*[ones(1,size(a2,2)); a2];
-a3 = sigmoid(z3);
+a2 = [ones(1,size(a2,2)); a2];
+z3 = Theta2*a2;a3 = sigmoid(z3);
 
-delta3 = zeros(num_labels, m);
-
+% compute CostFunction
 for i=1:m
   for k=1:num_labels
     if y(i) == k
@@ -76,27 +78,29 @@ for i=1:m
     else
       J = J + 1/m * (-log(1-a3)(k,i));
     end
-
-    delta3(:, k) = a3(:, k) - (y(k) == 1:num_labels)';
   end
 end
-
-delta2 = Theta2' * delta3 .* sigmoidGradient(z2)
-
-
 J = J + (lambda/(2*m)) * (sum(sum(Theta1(:,2:size(Theta1,2)).^2)) + sum(sum(Theta2(:,2:size(Theta2,2)).^2)));
 
+% Backward propagation
+delta3 = zeros(num_labels, m);
+for i=1:m
+  a_1 = [1; X(i, :)'];
+  z_2 = Theta1*a_1;
+  a_2 = sigmoid(z_2);
+  a_2 = [ones(1,size(a_2,2)); a_2];
+  z_3 = Theta2*a_2;
+  a_3 = sigmoid(z_3);
 
+  delta3 = a_3 - (y(i) == 1:num_labels)';
+  delta2 = (Theta2' * delta3)(2:end) .* sigmoidGradient(z_2);
 
+  Theta1_grad = Theta1_grad + delta2*a_1';
+  Theta2_grad = Theta2_grad + delta3*a_2';
+end
 
-
-
-
-
-
-
-
-
+  Theta1_grad = (1/m) * Theta1_grad;
+  Theta2_grad = (1/m) * Theta2_grad;
 % -------------------------------------------------------------
 
 % =========================================================================

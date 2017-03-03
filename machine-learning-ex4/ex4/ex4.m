@@ -30,7 +30,7 @@ num_labels = 10;          % 10 labels, from 1 to 10
 %
 
 % Load Training Data
-fprintf('Loading and Visualizing Data ...\n')
+% fprintf('Loading and Visualizing Data ...\n')
 
 load('ex4data1.mat');
 m = size(X, 1);
@@ -39,10 +39,10 @@ m = size(X, 1);
 sel = randperm(size(X, 1));
 sel = sel(1:100);
 
-displayData(X(sel, :));
+% displayData(X(sel, :));
 
-fprintf('Program paused. Press enter to continue.\n');
-pause;
+% fprintf('Program paused. Press enter to continue.\n');
+% pause;
 
 
 %% ================ Part 2: Loading Parameters ================
@@ -72,16 +72,16 @@ nn_params = [Theta1(:) ; Theta2(:)];
 fprintf('\nFeedforward Using Neural Network ...\n')
 
 % Weight regularization parameter (we set this to 0 here).
-lambda = 0;
-
-J = nnCostFunction(nn_params, input_layer_size, hidden_layer_size, ...
-                   num_labels, X, y, lambda);
-
-fprintf(['Cost at parameters (loaded from ex4weights): %f '...
-         '\n(this value should be about 0.287629)\n'], J);
-
-fprintf('\nProgram paused. Press enter to continue.\n');
-pause;
+% lambda = 0;
+% 
+% J = nnCostFunction(nn_params, input_layer_size, hidden_layer_size, ...
+%                    num_labels, X, y, lambda);
+% 
+% fprintf(['Cost at parameters (loaded from ex4weights): %f '...
+%          '\n(this value should be about 0.287629)\n'], J);
+% 
+% fprintf('\nProgram paused. Press enter to continue.\n');
+% pause;
 
 %% =============== Part 4: Implement Regularization ===============
 %  Once your cost function implementation is correct, you should now
